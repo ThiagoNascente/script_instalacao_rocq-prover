@@ -28,6 +28,36 @@ sudo chmod +x maquina_unica.sh
 
 > Testado e funcional
 
-# Múltiplas máquinas (Openssh)
+# Multiplas maquinas (Openssh)
 
-- 
+## Preparando o Terreno (Instalacao)
+
+- No terminal de cada máquina, executar
+
+```bash
+sudo apt update
+sudo apt install openssh-server
+sudo systemctl enable --now ssh
+```
+
+## Autenticação sem Senha (SSH Keys)
+
+- Na maquina que vai controlar as outras, gere uma chave:
+
+```bash
+ssh-keygen -t ed25519
+```
+
+- Prosseguir com `Enter` em tudo (cfg padrao)
+
+- Dar permissao ao deploy
+
+```bash
+chmod +x deploy_file.sh
+```
+
+- Executar
+
+```bash
+./deploy_file.sh
+```

@@ -1,31 +1,41 @@
 #!/bin/bash
 
 # Configurações do laboratório
-USUARIO_SSH="aluno" # Substitua pelo usuário padrão das máquinas do laboratório
+HOSTS_FILE="hosts.txt"
+USUARIO_SSH="aluno" 
 
-# Coloque aqui os IPs ou Hostnames de todas as máquinas do seu lab
-MAQUINAS=(
-    "192.168.1.101"
-    "192.168.1.102"
-    "192.168.1.103"
-    # Adicione quantos IPs precisar...
-)
+# Verifica se o arquivo de hosts existe antes de continuar
+if [[ ! -f "$HOSTS_FILE" ]]; then
+    echo "Erro: O arquivo '$HOSTS_FILE' não foi encontrado!"
+    exit 1
+fi
 
 # Solicita a senha do sudo uma única vez de forma segura
 echo -n "Digite a senha do sudo das máquinas do laboratório: "
 read -s SUDO_PASS
 echo ""
 
-# Loop para acessar cada máquina via SSH e rodar o script
-for IP in "${MAQUINAS[@]}"; do
+echo "Iniciando deploy a partir de: $HOSTS_FILE"
+
+# Loop para ler o arquivo linha por linha
+while IFS= read -r IP || [[ -n "$IP" ]]; do
+    # Ignora linhas que são apenas comentários (#) ou que estão vazias
+    [[ "$IP" =~ ^#.*$ || -z "$IP" ]] && continue
+
     echo "==================================================="
     echo "Acessando máquina: $IP..."
     
     # Envia a variável de senha e injeta o script bash local na máquina remota
-    ssh "$USUARIO_SSH@$IP" "SUDO_PASS='$SUDO_PASS' bash -s" < instalador_geral.sh
+    # O parâmetro -o ConnectTimeout evita que o script trave em máquinas offline
+    ssh -o ConnectTimeout=5 "$USUARIO_SSH@$IP" "SUDO_PASS='$SUDO_PASS' bash -s" < instalador_geral.sh
     
-    echo "Processo finalizado em $IP."
-done
+    if [ $? -eq 0 ]; then
+        echo "=========Processo finalizado com sucesso em $IP ========="
+    else
+        echo "========= Falha ao processar $IP ========="
+    fi
+
+done < "$HOSTS_FILE"
 
 echo "==================================================="
 echo "Deploy em todo o laboratório concluído!"
