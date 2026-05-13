@@ -22,7 +22,7 @@ for IP in "${MAQUINAS[@]}"; do
     echo "Acessando máquina: $IP..."
     
     # Envia a variável de senha e injeta o script bash local na máquina remota
-    ssh "$USUARIO_SSH@$IP" "SUDO_PASS='$SUDO_PASS' bash -s" < instalar_coq_lab.sh
+    ssh "$USUARIO_SSH@$IP" "SUDO_PASS='$SUDO_PASS' bash -s" < instalador_geral.sh
     
     echo "Processo finalizado em $IP."
 done

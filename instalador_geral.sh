@@ -1,13 +1,3 @@
-#!/bin/bash
-
-# 1 - O terminal já estará aberto para a execução deste script.
-
-# 3 - Solicita a senha do sudo de forma segura para não deixá-la exposta no código
-echo "Digite a senha do sudo para a instalação:"
-read -s SUDO_PASS
-echo "Senha recebida. Iniciando o processo..."
-echo "---------------------------------------------------"
-
 # 2 e 3 - Executa sudo apt update aplicando a senha
 echo "$SUDO_PASS" | sudo -S apt update
 
@@ -39,6 +29,18 @@ export OPAMJOBS=1
 echo "Iniciando a instalação automática do Coq..."
 
 echo "" | ./coq_platform_make.sh -extent=i -pick=package-pick-9.0~2025.08.sh -parallel=s -jobs=1
+
+# 14 - Ative o Switch específico do OPAM
+opam switch CP.2025.08.0~9.0~2025.08
+
+# 15 - iniciando e seta o modo padrao
+opam init --yes --reinit
+
+# 16 - inicia o ambiente do opam
+eval $(opam env)
+
+# 17 - abre o app
+rocqide
 
 echo "---------------------------------------------------"
 echo "Processo concluído!"
