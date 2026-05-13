@@ -37,12 +37,8 @@ export OPAMJOBS=1
 # 9 a 13 - Executa a instalação passando as respostas automaticamente
 # Utiliza a estrutura Here-Doc (<<EOF) para inserir as respostas: i, 1, s, 1
 echo "Iniciando a instalação automática do Coq..."
-./coq_platform_make.sh <<EOF
-i
-1
-s
-1
-EOF
+
+echo "" | ./coq_platform_make.sh -extent=i -pick=package-pick-9.0~2025.08.sh -parallel=s -jobs=1
 
 echo "---------------------------------------------------"
 echo "Processo concluído!"

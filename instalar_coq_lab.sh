@@ -24,11 +24,7 @@ ulimit -s 131072
 export OPAMJOBS=1
 
 echo "Iniciando a instalação automática do Coq..."
-./coq_platform_make.sh <<EOF
-i
-1
-s
-1
-EOF
+
+echo "" | ./coq_platform_make.sh -extent=i -pick=package-pick-9.0~2025.08.sh -parallel=s -jobs=1
 
 echo "Instalação concluída nesta máquina!"
