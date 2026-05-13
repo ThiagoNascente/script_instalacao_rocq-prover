@@ -14,6 +14,8 @@ sudo chmod +x maquina_unica.sh
 
 > Preferível instalar na pasta raiz [`cd`]
 
+> Testado e funcional
+
 # Múltiplas máquinas (Openssh)
 
 - 
