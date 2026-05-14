@@ -1,3 +1,11 @@
+# Recomendações
+
+- instalar o glow
+
+```bash
+sudo snap install glow
+```
+
 # Única máquina
 
 - Clonar repositório
@@ -30,7 +38,19 @@ sudo chmod +x maquina_unica.sh
 
 # Multiplas maquinas (Openssh)
 
-## Preparando o Terreno (Instalacao)
+1 -  Preparando o Terreno (Instalacao)
+
+- Clonar repositório
+
+```bash
+git clone https://github.com/ThiagoNascente/script_instalacao_rocq-prover.git
+```
+
+- Entrar na pasta
+
+```bash
+cd script_instalacao_rocq-prover
+```
 
 - No terminal de cada máquina, executar
 
@@ -62,3 +82,5 @@ chmod +x deploy_file.sh
 ```bash
 ./deploy_file.sh
 ```
+
+Lá dentro, definimos a senha do sudo (usada no suporte), dps a senha da máquina host.
