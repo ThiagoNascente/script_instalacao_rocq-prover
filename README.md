@@ -38,6 +38,7 @@ sudo chmod +x maquina_unica.sh
 sudo apt update
 sudo apt install openssh-server
 sudo systemctl enable --now ssh
+sudo apt install sshpass
 ```
 
 ## Autenticação sem Senha (SSH Keys)
